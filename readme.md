@@ -16,8 +16,7 @@ Take a look on the `src/settings.json`, it looks like:
         "$commentTokens": "$n",
         "$compress": "$xZ0",
         "$content": "$c",
-        "removeComments": "rmCts",
-        ...
+        "removeComments": "rmCts"
     }
 }
 ```
@@ -36,7 +35,7 @@ The `minify` script requires two arguments, the name of the `input` file and the
 php Minify.php input=src/Minify.php output=samples/test.php
 ```
 
-The command line above will process the `src/Minify.php`, keep that file unmodified but read his content, minify and obfuscate it and create then the `samples/test.php` file.
+The command line above will process the `[src/Minify.php](https://github.com/cavo789/php_obfuscator/blob/main/src/minify.php)`, keep that file unmodified but read his content, minify and obfuscate it and create then the `https://github.com/cavo789/php_obfuscator/blob/main/samples/test.php` file.
 
 ## Sample
 

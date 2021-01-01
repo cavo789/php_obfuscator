@@ -1,0 +1,4 @@
+.cache/*
+vendor/*
+run.bat
+composer.lock

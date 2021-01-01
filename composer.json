@@ -1,0 +1,15 @@
+{
+    "name": "cavo789/php_obfuscator",
+    "description": "This script will remove all the page setup of an existing PHP source code i.e. remove comments, unneeded carriage returns, multiples spaces, .",
+    "license": "MIT",
+    "require-dev": {
+        "rector/rector": "^0.9.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Avonture\\": [
+                "src/"
+            ]
+        }
+    }
+}

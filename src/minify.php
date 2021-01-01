@@ -150,11 +150,6 @@ class Minify
             $commentTokens[] = T_DOC_COMMENT;
         }
 
-        // PHP 4
-        if (defined('T_ML_COMMENT')) {
-            $commentTokens[] = T_ML_COMMENT;
-        }
-
         $tokens = token_get_all($content);
 
         $newContent = '';
@@ -254,7 +249,7 @@ class Minify
         $content = $this->pregReplaceAll('/\)[\r\n]+\)/', "))", $content);
 
         // Replace : followed by a keyword (bool, boolean, ... string)
-        $content = $this->pregReplaceAll('/: (bool|string)[\r\n]+{(.*)/', ": $1{ $2", $content);
+        $content = $this->pregReplaceAll('/: (bool|boolean|int|integer|string|void)[\r\n]+{(.*)/', ": $1{ $2", $content);
 
         // Replace } followed by CR/LF/CRLF and a second }
         $content = $this->pregReplaceAll('/}[\r\n]+}/', "}}", $content);
@@ -302,6 +297,29 @@ class Minify
 
         return $content;
     }
+    
+    /**
+     * Lint the resulting file, call the "php -l" command to make sure the
+     * output file is syntaxically correct
+     *
+     * @return void
+     */
+    private function lint(): void
+    {
+        $output=[];
+        $returnValue="";
+
+        exec("php -l $this->output", $output, $returnValue);
+
+        if (0 === $returnValue) {
+            echo "\033[32mSUCCESS!\033[0m\n";
+            return;
+        }
+
+        echo "\n\033[31mFAILURE!\033[0m\n\n";
+        echo "The file $this->output contains error:\n\n";
+        print_r($output);
+    }
 
     /**
      * Minify and obfuscate
@@ -332,11 +350,12 @@ class Minify
         // And save the compressed PHP file
         echo "\033[33mCreate $this->output\033[0m\n\n";
         file_put_contents($this->output, $newContent);
+        
+        $this->lint();
     }
 }
 
-// region Entry point
-
+#region Entry point
 echo "\033[32mPHP minifier and obfuscator tool\033[0m\n";
 echo "\033[32m================================\033[0m\n\n";
 
@@ -367,4 +386,4 @@ if (!is_file($path)) {
 $minify=new Minify($input, $output);
 $minify->doIt();
 unset($minify);
-// endregion
+#endregion

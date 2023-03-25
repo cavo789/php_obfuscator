@@ -1,4 +1,6 @@
 ﻿# PHP obfuscator
+ 
+![php 8.2](https://img.shields.io/badge/php-8.2-brightgreen?style=flat)
 
 ![banner](./banner.svg)
 
